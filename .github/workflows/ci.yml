@@ -24,9 +24,9 @@ jobs:
 
     - name: Create required directories & permissions
       run: |
-      mkdir -p bootstrap/cache
-      mkdir -p storage/framework/{sessions,views,cache}
-      chmod -R 775 bootstrap/cache storage/framework
+        mkdir -p bootstrap/cache
+        mkdir -p storage/framework/{sessions,views,cache}
+        chmod -R 775 bootstrap/cache storage/framework
 
     - name: Install dependencies
       run: composer install --no-interaction --prefer-dist --no-progress
