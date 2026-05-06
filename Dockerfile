@@ -2,7 +2,10 @@ FROM php:8.4-cli
 
 RUN apt-get update && apt-get install -y \
     libpq-dev \
-    libzip-dev
+    libzip-dev \
+    git \
+    unzip \
+    curl
 RUN docker-php-ext-install pdo pdo_pgsql zip
 # RUN docker-php-ext-configure pdo pdo_pgsql
 
@@ -16,10 +19,14 @@ RUN apt-get install -y nodejs
 WORKDIR /app
 
 COPY . .
+
+# Laravel needs these directories to exist and be writable at runtime.
+RUN mkdir -p bootstrap/cache storage/framework/{cache,sessions,views} storage/logs
+
 RUN composer install
 RUN npm ci
 RUN npm run build
 
-RUN > database/database.sqlite
+RUN mkdir -p database && > database/database.sqlite
 
 CMD ["bash", "-c", "php artisan migrate:refresh --seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
