@@ -1,0 +1,107 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\TaskStatus;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Middleware\Authorize;
+use Illuminate\Support\Facades\Gate;
+
+class TaskStatusController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $statuses = TaskStatus::paginate(15);
+
+        return view('task_statuses.index', compact('statuses'));
+    }
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        if (!Auth::user()) {
+            return redirect()->route('index');
+        }
+        return view('task_statuses.create');
+    }
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {   
+        if(!Auth::user()) {
+            return redirect()->route('index');
+        }
+            $data = $request->validate([
+            'name' => 'required|min:3|max:100|unique:task_statuses',
+            'color' => 'string'
+        ]);
+
+        new TaskStatus()->fill($data)->save();
+
+        return redirect()->route('task_statuses.index')->with('success', 'Статус успешно создан');
+    }
+
+    public function show(TaskStatus $task_status)
+    {
+        if(!Auth::user()) {
+            return redirect()->route('index');
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(TaskStatus $task_status)
+    {
+        if (!Auth::user()) {
+            return redirect()->route('index');
+        }
+
+        return view('task_statuses.edit', ['status' => $task_status]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, TaskStatus $taskStatus)
+    {
+        if (!Auth::user()) {
+            return redirect()->route('index');
+        }
+
+        $data = $request->validate([
+            'name' => 'required|min:3|max:100|unique:task_statuses',
+        ]);
+
+        $taskStatus->update([
+            'name' => $data['name']
+        ]);
+
+        return Redirect(route('task_statuses.index'))->with('success', 'Статус успешно обновлён');
+    }
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(TaskStatus $taskStatus)
+    {
+        if (!Auth::user()) {
+            return redirect()->route('index');
+        }
+        
+        if (!$taskStatus->canBeDeleted()) {
+            return redirect()->route('task_statuses.index')
+                ->with('error', 'Не удалось удалить статус');
+        }
+
+        $taskStatus->delete();
+
+        return Redirect(route('task_statuses.index'))->with('success', 'Статус успешно удалён');
+    }
+}

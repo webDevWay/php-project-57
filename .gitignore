@@ -23,6 +23,9 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+npm-debug.log
+yarn-error.log
+public/mix-manifest.json
 # =========================================================
 # Железобетонный .gitignore для веб-проектов (2026)
 # PHP/MODX + Node/Next + Python + IDE + секреты + мусор

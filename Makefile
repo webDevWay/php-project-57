@@ -14,9 +14,3 @@ autoload:
 
 require:
 	composer require
-	
-lint:
-	composer exec --verbose phpcs -- --standard=PSR12 src public
-
-lint-fix:
-	composer lint-fix
