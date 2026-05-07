@@ -41,7 +41,7 @@ class LabelController extends Controller
 
         $messages = [
             'name.required' => 'Это обязательное поле',
-            'name.unique:labels,name' => 'Метка с таким именем уже существует',
+            'name.unique' => 'Метка с таким именем уже существует',
         ];
 
         $data = $request->validate([

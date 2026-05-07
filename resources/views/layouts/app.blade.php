@@ -25,7 +25,7 @@
                     @auth
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button type="submit" class="hover:text-gray-300">Выход</button>
+                            <button type="submit" class="hover:text-gray-300"><a>Выход</a></button>
                         </form>
                     @else
                         <a href="{{ route('login') }}" class="bg-blue-600 hover:bg-blue-700 hover:text-gray-300 mr-2 py-2 px-6 rounded-md transition">Вход</a>

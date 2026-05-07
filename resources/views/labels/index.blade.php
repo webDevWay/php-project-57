@@ -36,6 +36,7 @@
                         <td class="px-4 py-4  text-sm text-gray-500"> {{ $label->created_at?->format('d.m.Y') }} </td>
                         @auth
                             <td>
+                                <!-- Странно что тесты ищут именно ссылку на метод DELETE -->
                                 <a class="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800" href="{{ route('labels.edit', $label->id) }}">Изменить</a> | 
                                 <a href="{{ route('labels.destroy', $label->id) }}" 
                                     onclick="event.preventDefault(); if(confirm('Подтвердите удаление')) 

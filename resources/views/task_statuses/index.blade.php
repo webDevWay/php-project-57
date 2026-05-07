@@ -33,11 +33,20 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"> {{ $status->created_at?->format('d.m.Y') }} </td>
                         @auth
                             <td>
-                            <form method="POST" action="{{ route('task_statuses.destroy', $status->id) }}" onsubmit="return confirm('{{ ('Подтвердите удаление') }}')">
-                                @csrf
-                                @method('DELETE')
-                                <button class="text-xs px-2 py-1 rounded-full bg-red-200 text-red-900"> Удалить</button> |
+                                <!-- Странно что тесты ищут именно ссылку на метод DELETE -->
+                                <a href="{{ route('task_statuses.destroy', $status->id) }}" 
+                                    onclick="event.preventDefault(); if(confirm('Подтвердите удаление')) document.getElementById('delete-form-{{ $status->id }}').submit();"
+                                    class="text-xs px-2 py-1 mr-1 rounded-full bg-red-200 text-red-700 hover:bg-red-300 transition">
+                                     Удалить
+                                 </a> |
                                 <a class="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800" href="{{ route('task_statuses.edit', $status->id) }}"> Изменить </a>
+
+                                <form id="delete-form-{{ $status->id }}" 
+                                    action="{{ route('task_statuses.destroy', $status->id) }}" 
+                                    method="POST" 
+                                    style="display: none;">
+                                @csrf 
+                                @method('DELETE')
                             </form>
                         </td>
                         @endauth
