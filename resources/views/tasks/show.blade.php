@@ -49,6 +49,7 @@
                 <div>
                     <h3 class="text-sm font-medium text-gray-500">{{ "Дата создания" }}</h3>
                     <p class="mt-1 text-gray-900">{{ $task->created_at->format('d.m.Y H:i') }}</p>
+                    <p class="mt-1 text-gray-900">ID: {{ $task->id }}</p>
                 </div>
             </div>
         </div>
