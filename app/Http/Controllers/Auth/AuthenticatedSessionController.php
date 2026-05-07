@@ -27,7 +27,7 @@ class AuthenticatedSessionController extends Controller
     {
         if (! Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
             throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
+                'email' => ('Введите правильные имя пользователя и пароль'),
             ]);
         }
 
