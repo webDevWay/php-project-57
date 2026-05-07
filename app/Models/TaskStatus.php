@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,7 +16,7 @@ class TaskStatus extends Model
     {
         return $this->hasMany(Task::class, 'status_id');
     }
-    
+
     public function canBeDeleted(): bool
     {
         return $this->tasks()->count() === 0;

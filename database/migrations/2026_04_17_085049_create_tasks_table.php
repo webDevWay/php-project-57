@@ -32,7 +32,7 @@ return new class extends Migration
             $table->dropForeign(['created_by_id']);
             $table->dropForeign(['assigned_to_id']);
         });
-        
+
         Schema::dropIfExists('tasks');
     }
 };

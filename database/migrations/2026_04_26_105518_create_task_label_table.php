@@ -28,7 +28,7 @@ return new class extends Migration
             $table->dropForeign(['task_id']);
             $table->dropForeign(['label_id']);
         });
-        
+
         Schema::dropIfExists('task_label');
     }
 };

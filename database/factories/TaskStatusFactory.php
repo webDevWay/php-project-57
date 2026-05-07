@@ -16,9 +16,8 @@ class TaskStatusFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'Status ' . Str::lower($this->faker->unique()->lexify('?????')),
+            'name' => 'Status '.Str::lower($this->faker->unique()->lexify('?????')),
             'color' => $this->faker->hexColor(),
         ];
     }
 }
-

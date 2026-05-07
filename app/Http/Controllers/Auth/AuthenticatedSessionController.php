@@ -7,8 +7,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
         }
 
         $request->session()->regenerate();
-    
+
         session()->flash('success', 'Добро пожаловать! Вы успешно вошли.');
 
         return redirect('/');

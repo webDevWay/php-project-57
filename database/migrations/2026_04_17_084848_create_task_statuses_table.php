@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('task_statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique(); //- обязательное. Название задачи
+            $table->string('name')->unique(); // - обязательное. Название задачи
             $table->timestamps();
         });
     }

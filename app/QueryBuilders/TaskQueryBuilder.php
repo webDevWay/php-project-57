@@ -3,8 +3,8 @@
 namespace App\QueryBuilders;
 
 use App\Models\Task;
-use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 final class TaskQueryBuilder
 {

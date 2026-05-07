@@ -14,6 +14,7 @@ class LabelController extends Controller
     public function index()
     {
         $labels = Label::paginate(15);
+
         return view('labels.index', compact('labels'));
     }
 
@@ -22,11 +23,11 @@ class LabelController extends Controller
      */
     public function create()
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
 
-       return view('labels.create');
+        return view('labels.create');
     }
 
     /**
@@ -34,14 +35,14 @@ class LabelController extends Controller
      */
     public function store(Request $request)
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
 
         $data = $request->validate([
             'name' => 'required|min:3|max:50|unique:labels,name',
             'description' => 'nullable|max:100',
-            'color' => 'string'
+            'color' => 'string',
         ]);
         new Label()->fill($data)->save();
 
@@ -53,7 +54,7 @@ class LabelController extends Controller
      */
     public function show(Label $label)
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
     }
@@ -63,7 +64,7 @@ class LabelController extends Controller
      */
     public function edit(Label $label)
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
 
@@ -75,13 +76,13 @@ class LabelController extends Controller
      */
     public function update(Request $request, Label $label)
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
 
         $data = $request->validate([
             'name' => 'required|min:3',
-            'description' => 'string'
+            'description' => 'string',
         ]);
         $label->update($data);
 
@@ -93,16 +94,17 @@ class LabelController extends Controller
      */
     public function destroy(Label $label)
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
-        
-         if (!$label->canBeDeleted()) {
+
+        if (! $label->canBeDeleted()) {
             return redirect()->route('labels.index')
                 ->with('error', ('Не удалось удалить метку'));
         }
 
         $label->delete();
+
         return redirect()->route('labels.index')->with('success', 'успешно удалено');
-   }
+    }
 }

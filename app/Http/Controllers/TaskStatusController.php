@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TaskStatus;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Auth\Middleware\Authorize;
-use Illuminate\Support\Facades\Gate;
 
 class TaskStatusController extends Controller
 {
@@ -20,45 +17,47 @@ class TaskStatusController extends Controller
 
         return view('task_statuses.index', compact('statuses'));
     }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
 
         return view('task_statuses.create');
     }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {   
-        if (!Auth::user()) {
+    {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
         $messages = [
-            'name.required'=> 'Это обязательное поле',
-            'name.unique'=> 'Статус с таким именем уже существует',
+            'name.required' => 'Это обязательное поле',
+            'name.unique' => 'Статус с таким именем уже существует',
         ];
 
         $data = $request->validate([
             'name' => 'required|min:3|max:100|unique:task_statuses',
-            'color' => 'string'
+            'color' => 'string',
         ], $messages);
-        
+
         TaskStatus::create($data);
-        
-        //new TaskStatus()->fill($data)->save();
+
+        // new TaskStatus()->fill($data)->save();
 
         return redirect()->route('task_statuses.index')->with('success', 'Статус успешно создан');
     }
 
     public function show(TaskStatus $task_status)
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
     }
@@ -68,7 +67,7 @@ class TaskStatusController extends Controller
      */
     public function edit(TaskStatus $task_status)
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
 
@@ -80,7 +79,7 @@ class TaskStatusController extends Controller
      */
     public function update(Request $request, TaskStatus $taskStatus)
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
 
@@ -89,21 +88,22 @@ class TaskStatusController extends Controller
         ]);
 
         $taskStatus->update([
-            'name' => $data['name']
+            'name' => $data['name'],
         ]);
 
         return Redirect(route('task_statuses.index'))->with('success', 'Статус успешно обновлён');
     }
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
-        
-        if (!$taskStatus->canBeDeleted()) {
+
+        if (! $taskStatus->canBeDeleted()) {
             return redirect()->route('task_statuses.index')
                 ->with('error', 'Не удалось удалить статус');
         }

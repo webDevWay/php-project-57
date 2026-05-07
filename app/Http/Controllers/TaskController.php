@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Label;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
-use App\Models\Label;
 use App\QueryBuilders\TaskQueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,16 +23,16 @@ class TaskController extends Controller
 
         return view('tasks.index', compact('tasks', 'statuses', 'users'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
-        
+
         $statuses = TaskStatus::all();
         $users = User::all();
         $labels = Label::all();
@@ -45,10 +45,10 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
-        
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -57,15 +57,15 @@ class TaskController extends Controller
             'labels' => 'nullable|array',
             'labels.*' => 'exists:labels,id',
         ]);
-        
+
         $validated['created_by_id'] = Auth::id();
-        
+
         $task = Task::create($validated);
-        
-        if (!empty($validated['labels'])) {
+
+        if (! empty($validated['labels'])) {
             $task->labels()->sync($validated['labels']);
         }
-        
+
         return redirect()->route('tasks.index')
             ->with('success', ('task.created_successfully'));
     }
@@ -75,10 +75,10 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
-        
+
         return view('tasks.show', compact('task'));
     }
 
@@ -87,10 +87,10 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
-        
+
         $statuses = TaskStatus::all();
         $users = User::all();
         $labels = Label::all();
@@ -103,10 +103,10 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
-        
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -115,15 +115,15 @@ class TaskController extends Controller
             'labels' => 'nullable|array',
             'labels.*' => 'exists:labels,id',
         ]);
-        
+
         $task->update($validated);
-        
+
         if (isset($validated['labels'])) {
             $task->labels()->sync($validated['labels']);
         } else {
             $task->labels()->sync([]);
         }
-        
+
         return redirect()->route('tasks.index')
             ->with('success', ('Задача успешно обновлена'));
     }
@@ -133,17 +133,17 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return redirect()->route('index');
         }
-        
-        if (!$task->canBeDeletedBy(Auth::user())) {
+
+        if (! $task->canBeDeletedBy(Auth::user())) {
             return redirect()->route('tasks.index')
                 ->with('error', ('Невозможно удалить чужую задачу'));
         }
-        
+
         $task->delete();
-        
+
         return redirect()->route('tasks.index')
             ->with('success', ('Задача успешно удалена'));
     }
