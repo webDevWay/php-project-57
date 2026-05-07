@@ -24,6 +24,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('task_label', function (Blueprint $table) {
+            $table->dropForeign(['task_id']);
+            $table->dropForeign(['label_id']);
+        });
+        
         Schema::dropIfExists('task_label');
     }
 };
