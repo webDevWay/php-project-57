@@ -16,7 +16,7 @@ final class TaskQueryBuilder
                 AllowedFilter::exact('created_by_id'),
                 AllowedFilter::exact('assigned_to_id'),
             )
-            ->defaultSort('-id')
+            ->defaultSort('id')
             ->allowedSorts('id', 'name', 'created_at');
     }
 }

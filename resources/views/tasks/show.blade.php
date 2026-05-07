@@ -1,8 +1,5 @@
 @extends('layouts.app')
 
-@section('title', $task->name)
-@section('header', $task->name)
-
 @section('content')
 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
     <div class="p-6 text-gray-900">
@@ -56,7 +53,9 @@
         
         @can('delete', $task)
             <div class="mt-6 pt-4 border-t border-gray-200">
-                <form action="{{ route('tasks.destroy', $task) }}" method="POST" onsubmit="return confirm('{{ "Вы уверены, что хотите удалить эту задачу?" }}')">
+                <form action="{{ route('tasks.destroy', $task) }}" 
+                    method="POST" 
+                    onsubmit="return confirm('Вы уверены, что хотите удалить эту задачу?')">
                     @csrf @method('DELETE')
                     <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition">{{ "Удалить задачу" }}</button>
                 </form>
