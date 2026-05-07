@@ -22,8 +22,7 @@
                            id="name" 
                            value=""
                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none @error('name') border-red-500 @enderror"
-                           placeholder="Например: В работе, Завершён, Отложен"
-                           required>
+                           placeholder="Например: В работе, Завершён, Отложен">
                     @error('name')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror

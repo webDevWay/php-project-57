@@ -36,11 +36,21 @@
                         <td class="px-4 py-4  text-sm text-gray-500"> {{ $label->created_at?->format('d.m.Y') }} </td>
                         @auth
                             <td>
-                                <form method="POST" action="{{ route('labels.destroy', $label->id) }}" onsubmit="return confirm('{{ ('Подтвердите удаление') }}')">
-                                    @csrf @method('DELETE')
-                                    <button class="text-xs px-2 py-1 rounded-full bg-red-200 text-red-900">Удалить</button> |
-                                    <a class="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800" href="{{ route('labels.edit', $label->id) }}">Изменить</a>
-                                </form>
+                                <a class="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800" href="{{ route('labels.edit', $label->id) }}">Изменить</a> | 
+                                <a href="{{ route('labels.destroy', $label->id) }}" 
+                                    onclick="event.preventDefault(); if(confirm('Подтвердите удаление')) 
+                                    document.getElementById('delete-form-{{ $label->id }}').submit();"
+                                    class="text-xs px-2 py-1 rounded-full bg-red-200 text-red-700 hover:bg-red-300 transition">
+                                     Удалить
+                                 </a>
+                                 
+                                 <form id="delete-form-{{ $label->id }}" onsubmit="return confirm('{{ ('Подтвердите удаление') }}')"
+                                       action="{{ route('labels.destroy', $label->id) }}" 
+                                       method="POST" 
+                                       style="display: none;">
+                                     @csrf 
+                                     @method('DELETE')
+                                 </form>
                             </td>
                         @endauth
                     </tr>
