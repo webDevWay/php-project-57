@@ -7,7 +7,6 @@ RUN apt-get update && apt-get install -y \
     unzip \
     curl
 RUN docker-php-ext-install pdo pdo_pgsql zip
-# RUN docker-php-ext-configure pdo pdo_pgsql
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
@@ -20,19 +19,18 @@ WORKDIR /app
 
 COPY . .
 
-# Laravel needs these directories to exist and be writable at runtime.
 RUN mkdir -p bootstrap/cache storage/framework/{cache,sessions,views} storage/logs
 
-RUN composer install
-RUN npm ci
-RUN npm run build
-
-RUN mkdir -p database && > database/database.sqlite
 RUN mkdir -p storage/framework/cache \
+    && mkdir -p storage/framework/cache/data \
     && mkdir -p storage/framework/sessions \
     && mkdir -p storage/framework/views \
     && mkdir -p storage/logs \
     && mkdir -p bootstrap/cache \
     && chmod -R 775 storage \
     && chmod -R 775 bootstrap/cache
+
+RUN composer install
+RUN npm ci
+RUN npm run build
 CMD ["bash", "-c", "php artisan migrate:refresh --seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
