@@ -67,7 +67,7 @@ class TaskController extends Controller
         }
 
         return redirect()->route('tasks.index')
-            ->with('success', ('task.created_successfully'));
+            ->with('success', ('Задача успешно создана'));
     }
 
     /**
@@ -125,7 +125,7 @@ class TaskController extends Controller
         }
 
         return redirect()->route('tasks.index')
-            ->with('success', ('Задача успешно обновлена'));
+            ->with('success', ('Задача успешно изменена'));
     }
 
     /**

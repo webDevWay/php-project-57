@@ -39,14 +39,22 @@ class LabelController extends Controller
             return redirect()->route('index');
         }
 
+        $messages = [
+            'name.required' => 'Это обязательное поле',
+            'name.unique:labels,name' => 'Метка с таким именем уже существует',
+        ];
+
         $data = $request->validate([
             'name' => 'required|min:3|max:50|unique:labels,name',
-            'description' => 'nullable|max:100',
+            'description' => 'nullable|string|max:100',
             'color' => 'string',
-        ]);
-        new Label()->fill($data)->save();
+        ], $messages);
 
-        return redirect()->route('labels.index')->with('success', 'успешно создано');
+        Label::create($data);
+
+        // new Label()->fill($data)->save();
+
+        return redirect()->route('labels.index')->with('success', 'Метка успешно создана');
     }
 
     /**
@@ -86,7 +94,7 @@ class LabelController extends Controller
         ]);
         $label->update($data);
 
-        return redirect()->route('labels.index')->with('success', 'успешно обновлено');
+        return redirect()->route('labels.index')->with('success', 'Метка успешно изменена');
     }
 
     /**
@@ -105,6 +113,6 @@ class LabelController extends Controller
 
         $label->delete();
 
-        return redirect()->route('labels.index')->with('success', 'успешно удалено');
+        return redirect()->route('labels.index')->with('success', 'Метка успешно удалена');
     }
 }

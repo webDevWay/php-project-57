@@ -91,7 +91,7 @@ class TaskStatusController extends Controller
             'name' => $data['name'],
         ]);
 
-        return Redirect(route('task_statuses.index'))->with('success', 'Статус успешно обновлён');
+        return Redirect(route('task_statuses.index'))->with('success', 'Статус успешно изменён');
     }
 
     /**
