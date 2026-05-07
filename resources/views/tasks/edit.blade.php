@@ -54,7 +54,7 @@
                 
                 <div class="flex justify-end space-x-2">
                         <a href="{{ route('tasks.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition">{{ "Отмена" }}</a>
-                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">{{ "Изменить задачу" }}</button>             
+                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">{{ "Обновить" }}</button>             
                 </div>
             </form>
         </div>

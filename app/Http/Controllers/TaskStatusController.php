@@ -28,6 +28,7 @@ class TaskStatusController extends Controller
         if (!Auth::user()) {
             return redirect()->route('index');
         }
+
         return view('task_statuses.create');
     }
     /**
@@ -35,22 +36,29 @@ class TaskStatusController extends Controller
      */
     public function store(Request $request)
     {   
-        if(!Auth::user()) {
+        if (!Auth::user()) {
             return redirect()->route('index');
         }
-            $data = $request->validate([
+        $messages = [
+            'name.required'=> 'Это обязательное поле',
+            'name.unique'=> 'Статус с таким именем уже существует',
+        ];
+
+        $data = $request->validate([
             'name' => 'required|min:3|max:100|unique:task_statuses',
             'color' => 'string'
-        ]);
-
-        new TaskStatus()->fill($data)->save();
+        ], $messages);
+        
+        TaskStatus::create($data);
+        
+        //new TaskStatus()->fill($data)->save();
 
         return redirect()->route('task_statuses.index')->with('success', 'Статус успешно создан');
     }
 
     public function show(TaskStatus $task_status)
     {
-        if(!Auth::user()) {
+        if (!Auth::user()) {
             return redirect()->route('index');
         }
     }
