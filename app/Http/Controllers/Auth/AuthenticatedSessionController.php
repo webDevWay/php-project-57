@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
     
         session()->flash('success', 'Добро пожаловать! Вы успешно вошли.');
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('index', absolute: false));
     }
 
     /**
