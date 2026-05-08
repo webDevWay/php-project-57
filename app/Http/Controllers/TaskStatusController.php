@@ -23,7 +23,7 @@ class TaskStatusController extends Controller
      */
     public function create()
     {
-        if (! Auth::user()) {
+        if (!Auth::check()) {
             return redirect()->route('index');
         }
 
@@ -35,7 +35,7 @@ class TaskStatusController extends Controller
      */
     public function store(Request $request)
     {
-        if (! Auth::user()) {
+        if (!Auth::check()) {
             return redirect()->route('index');
         }
         $messages = [
@@ -55,7 +55,7 @@ class TaskStatusController extends Controller
 
     public function show(TaskStatus $taskStatus)
     {
-        if (! Auth::user()) {
+        if (!Auth::check()) {
             return redirect()->route('index');
         }
     }
@@ -65,7 +65,7 @@ class TaskStatusController extends Controller
      */
     public function edit(TaskStatus $taskStatus)
     {
-        if (! Auth::user()) {
+        if (!Auth::check()) {
             return redirect()->route('index');
         }
 
@@ -77,7 +77,7 @@ class TaskStatusController extends Controller
      */
     public function update(Request $request, TaskStatus $taskStatus)
     {
-        if (! Auth::user()) {
+        if (!Auth::check()) {
             return redirect()->route('index');
         }
 
@@ -97,7 +97,7 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        if (! Auth::user()) {
+        if (!Auth::check()) {
             return redirect()->route('index');
         }
 

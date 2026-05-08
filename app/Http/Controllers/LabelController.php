@@ -23,7 +23,7 @@ class LabelController extends Controller
      */
     public function create()
     {
-        if (! Auth::user()) {
+        if (!Auth::check()) {
             return redirect()->route('index');
         }
 
@@ -35,7 +35,7 @@ class LabelController extends Controller
      */
     public function store(Request $request)
     {
-        if (! Auth::user()) {
+        if (!Auth::check()) {
             return redirect()->route('index');
         }
 
@@ -62,7 +62,7 @@ class LabelController extends Controller
      */
     public function show(Label $label)
     {
-        if (! Auth::user()) {
+        if (! Auth::check()) {
             return redirect()->route('index');
         }
     }
@@ -72,7 +72,7 @@ class LabelController extends Controller
      */
     public function edit(Label $label)
     {
-        if (! Auth::user()) {
+        if (! Auth::check()) {
             return redirect()->route('index');
         }
 
@@ -84,7 +84,7 @@ class LabelController extends Controller
      */
     public function update(Request $request, Label $label)
     {
-        if (! Auth::user()) {
+        if (! Auth::check()) {
             return redirect()->route('index');
         }
 
@@ -102,7 +102,7 @@ class LabelController extends Controller
      */
     public function destroy(Label $label)
     {
-        if (! Auth::user()) {
+        if (! Auth::check()) {
             return redirect()->route('index');
         }
 
