@@ -53,7 +53,7 @@ class TaskStatusController extends Controller
         return redirect()->route('task_statuses.index')->with('success', 'Статус успешно создан');
     }
 
-    public function show(TaskStatus $task_status)
+    public function show(TaskStatus $taskStatus)
     {
         if (! Auth::user()) {
             return redirect()->route('index');
@@ -63,13 +63,13 @@ class TaskStatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TaskStatus $task_status)
+    public function edit(TaskStatus $taskStatus)
     {
         if (! Auth::user()) {
             return redirect()->route('index');
         }
 
-        return view('task_statuses.edit', ['status' => $task_status]);
+        return view('task_statuses.edit', ['status' => $taskStatus]);
     }
 
     /**
