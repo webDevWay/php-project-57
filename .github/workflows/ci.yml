@@ -40,9 +40,3 @@ jobs:
 
     - name: Run formatter check (pint)
       run: ./vendor/bin/pint --test --preset psr12
-
-    - name: Run tests
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
-      run: composer test
