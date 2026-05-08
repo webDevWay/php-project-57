@@ -23,7 +23,7 @@ class LabelController extends Controller
      */
     public function create()
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return redirect()->route('index');
         }
 
@@ -35,7 +35,7 @@ class LabelController extends Controller
      */
     public function store(Request $request)
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return redirect()->route('index');
         }
 

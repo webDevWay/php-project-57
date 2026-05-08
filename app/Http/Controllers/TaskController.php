@@ -29,7 +29,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return redirect()->route('index');
         }
 
@@ -45,7 +45,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return redirect()->route('index');
         }
 
@@ -79,7 +79,7 @@ class TaskController extends Controller
      */
     public function show(Task $task, User $user)
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return redirect()->route('index');
         }
 
@@ -91,7 +91,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return redirect()->route('index');
         }
 

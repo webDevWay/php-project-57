@@ -6,7 +6,7 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "laracasts/flash": "^3.2",
         "laravel/framework": "^13.0",
         "laravel/tinker": "^3.0",
@@ -68,8 +68,7 @@
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
-        ],
-         "lint-fix": "./vendor/bin/phpcbf --standard=PSR12 app tests"
+        ]
     },
     "extra": {
         "laravel": {
