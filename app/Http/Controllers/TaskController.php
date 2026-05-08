@@ -77,7 +77,7 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show(Task $task, User $user)
     {
         if (! Auth::user()) {
             return redirect()->route('index');

@@ -43,6 +43,6 @@ class Task extends Model
 
     public function canBeDeletedBy(User $user): bool
     {
-        return $this->created_by_id === $user->id;
+        return $this->creator->id === $user->id;
     }
 }
