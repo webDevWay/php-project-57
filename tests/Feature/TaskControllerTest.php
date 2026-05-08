@@ -23,7 +23,7 @@ class TaskControllerTest extends TestCase
         $this->status = TaskStatus::factory()->create();
     }
 
-    public function test_guest_cannot_access_tasks()
+    public function testGuestCannotAccessTasks()
     {
         $response = $this->get(route('tasks.create'));
         $response->assertRedirect(route('index'));
