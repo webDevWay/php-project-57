@@ -93,12 +93,15 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $task->created_at?->format('d.m.Y') }}</td>
                             @auth
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                <a href="{{ route('tasks.edit', $task) }}" class="text-indigo-600 hover:text-indigo-900">{{ ('Изменить') }}</a>
-                                <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="inline-block" onsubmit="return confirm('{{ ('Подтверждате удаление?') }}')">
+                                    <a href="{{ route('tasks.edit', $task) }}" class="text-indigo-600 hover:text-indigo-900">{{ ('Изменить') }}</a>
+                            @can('delete', $task)
+                                <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="inline-block" onsubmit="return confirm('{{  ('Подтверждате удаление?') }}')">
                                     @csrf @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:text-red-900">{{ ('Удалить') }}</button>
+                                    <button type="submit" class="text-red-600 hover:text-red-900"><a>{{ ('Удалить') }}</a></button>
                                 </form>
-                            </td>
+                                </td>
+                            @endcan
+                                
                             @endauth
                         </tr>
                         @endforeach
