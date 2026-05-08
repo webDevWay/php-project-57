@@ -40,3 +40,8 @@ jobs:
 
     - name: Run formatter check (pint)
       run: ./vendor/bin/pint --test --preset psr12
+
+    - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
