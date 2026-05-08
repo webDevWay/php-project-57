@@ -31,7 +31,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all of the createdTasks for the User
+     * Get all of the createdTasks for the User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -41,7 +41,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all of the assignedTasks for the User
+     * Get all of the assignedTasks for the User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

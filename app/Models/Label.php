@@ -13,7 +13,7 @@ class Label extends Model
     protected $fillable = ['name', 'description', 'color'];
 
     /**
-     * The tasks that belong to the Label
+     * The tasks that belong to the Label.
      */
     public function tasks(): BelongsToMany
     {
