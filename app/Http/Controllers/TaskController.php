@@ -49,6 +49,10 @@ class TaskController extends Controller
             return redirect()->route('index');
         }
 
+        $messages = [
+            'name.required' => 'Это обязательное поле',
+        ];
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -56,7 +60,7 @@ class TaskController extends Controller
             'assigned_to_id' => 'nullable|exists:users,id',
             'labels' => 'nullable|array',
             'labels.*' => 'exists:labels,id',
-        ]);
+        ], $messages);
 
         $validated['created_by_id'] = Auth::id();
 
