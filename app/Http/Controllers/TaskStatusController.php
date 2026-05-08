@@ -89,7 +89,7 @@ class TaskStatusController extends Controller
             'name' => $data['name'],
         ]);
 
-        return Redirect(route('task_statuses.index'))->with('success', 'Статус успешно изменён');
+        return redirect()->route('task_statuses.index')->with('success', 'Статус успешно изменён');
     }
 
     /**
@@ -108,6 +108,6 @@ class TaskStatusController extends Controller
 
         $taskStatus->delete();
 
-        return Redirect(route('task_statuses.index'))->with('success', 'Статус успешно удалён');
+        return redirect()->route('task_statuses.index')->with('success', 'Статус успешно удалён');
     }
 }

@@ -66,7 +66,7 @@ class TaskController extends Controller
 
         $task = Task::create($validated);
 
-        if (! empty($validated['labels'])) {
+        if (isset($validated['labels']) && $validated['labels'] !== []) {
             $task->labels()->sync($validated['labels']);
         }
 
@@ -107,7 +107,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        if (! Auth::user()) {
+        if (! Auth::check()) {
             return redirect()->route('index');
         }
 
@@ -137,7 +137,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        if (! Auth::user()) {
+        if (! Auth::check()) {
             return redirect()->route('index');
         }
 
