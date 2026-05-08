@@ -17,7 +17,7 @@ require:
 
 	# Форматирование кода
 pint:
-	./vendor/bin/pint
+	./vendor/bin/pint --preset psr12
 
 	# Проверка форматирования (без сохранения)
 pint-test:

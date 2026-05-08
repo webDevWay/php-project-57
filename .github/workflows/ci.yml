@@ -38,8 +38,8 @@ jobs:
         DB_DATABASE: database/database.sqlite
       run: php artisan migrate --force
 
-    - name: Run formatter check (lint fix)
-      run: make lint
+    - name: Run formatter check (pint)
+      run: ./vendor/bin/pint --test --preset psr12
 
     - name: Run tests
       env:

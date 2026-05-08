@@ -20,13 +20,13 @@ class LabelControllerTest extends TestCase
         $this->user = User::factory()->create();
     }
 
-    public function test_guest_cannot_access_labels()
+    public function testGuestCannotAccessLabels()
     {
         $response = $this->get(route('labels.create'));
         $response->assertRedirect(route('index'));
     }
 
-    public function test_authenticated_user_can_view_labels()
+    public function testAuthenticatedUserCanViewLabels()
     {
         $response = $this->actingAs($this->user)
             ->get(route('labels.index'));
@@ -35,7 +35,7 @@ class LabelControllerTest extends TestCase
         $response->assertViewIs('labels.index');
     }
 
-    public function test_authenticated_user_can_createlabel()
+    public function testAuthenticatedUserCanCreatelabel()
     {
         $data = [
             'name' => 'Bug',
@@ -49,7 +49,7 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseHas('labels', $data);
     }
 
-    public function test_label_name_must_be_unique()
+    public function testLabelNameMustBeUnique()
     {
         Label::create(['name' => 'Duplicate']);
 
@@ -59,7 +59,7 @@ class LabelControllerTest extends TestCase
         $response->assertSessionHasErrors('name');
     }
 
-    public function test_authenticated_user_can_update_label()
+    public function testAuthenticatedUserCanUpdateLabel()
     {
         $label = Label::create(['name' => 'Old Name']);
 
@@ -73,7 +73,7 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseHas('labels', ['id' => $label->id, 'name' => 'New Name']);
     }
 
-    public function test_authenticated_user_can_delete_label_without_tasks()
+    public function testAuthenticatedUserCanDeleteLabelWithoutTasks()
     {
         $label = Label::create(['name' => 'Deletable']);
 
@@ -84,7 +84,7 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseMissing('labels', ['id' => $label->id]);
     }
 
-    public function test_cannot_delete_label_with_associated_tasks()
+    public function testCannotDeleteLabelWithAssociatedTasks()
     {
         $label = Label::create(['name' => 'Protected']);
         $task = Task::factory()->create();
@@ -98,7 +98,7 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseHas('labels', ['id' => $label->id]);
     }
 
-    public function test_validation_required_name()
+    public function testValidationRequiredName()
     {
         $response = $this->actingAs($this->user)
             ->post(route('labels.store'), ['name' => '']);
