@@ -23,13 +23,13 @@ jobs:
         coverage: xdebug
 
     - name: Setup Project
-        run: make setup
+      run: make setup
 
     - name: Copy .env.example to .env
       run: cp .env.example .env
 
     - name: Generate Key
-        run: php artisan key:generate
-        
+      run: php artisan key:generate
+
     - name: Run formatter check (pint)
       run: ./vendor/bin/pint --test --preset psr12
