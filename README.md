@@ -8,7 +8,7 @@
 <h6 align="center">профессия PHP-разработчик от Hexlet</h6>
 <h3 align="center">Проект 4: <a href="https://ru.hexlet.io/programs/php/projects/57">Менеджер задач (PHP)</a></h3>
 
-проект на Render.com - https://php-project-57-bafb.onrender.com
+проект на Render.com - https://php-project-57-1-uxv7.onrender.com/
 
 Цель
 
