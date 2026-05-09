@@ -8,5 +8,12 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        https: true
+    },
+    build: {
+        assetsPublicPath: '/build/',
+        assetsDir: 'assets'
+    },
     base: '/build/',
 });
