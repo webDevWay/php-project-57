@@ -21,6 +21,8 @@ COPY . .
 
 RUN mkdir -p bootstrap/cache storage/framework/{cache,sessions,views} storage/logs
 
+RUN echo "DB_CONNECTION=pgsql" >> .env.production || true
+
 RUN composer install
 RUN npm ci
 RUN npm run build
