@@ -22,8 +22,8 @@ jobs:
         extensions: mbstring, xml, json
         coverage: xdebug
 
-    - name: Setup Project
-      run: make setup
+    - name: Install dependencies
+      run: composer install --no-interaction --prefer-dist --no-progress
 
     - name: Copy .env.example to .env
       run: cp .env.example .env
