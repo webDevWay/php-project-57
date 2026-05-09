@@ -10,12 +10,14 @@ return new class() extends Migration {
      */
     public function up(): void
     {
-        Schema::create('labels', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('description')->default('')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('labels')) {
+            Schema::create('labels', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->text('description')->default('')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
