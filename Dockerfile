@@ -21,15 +21,6 @@ COPY . .
 
 RUN mkdir -p bootstrap/cache storage/framework/{cache,sessions,views} storage/logs
 
-RUN mkdir -p storage/framework/cache \
-    && mkdir -p storage/framework/cache/data \
-    && mkdir -p storage/framework/sessions \
-    && mkdir -p storage/framework/views \
-    && mkdir -p storage/logs \
-    && mkdir -p bootstrap/cache \
-    && chmod -R 775 storage \
-    && chmod -R 775 bootstrap/cache
-
 RUN composer install
 RUN npm ci
 RUN npm run build
