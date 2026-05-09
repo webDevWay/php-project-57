@@ -22,21 +22,14 @@ jobs:
         extensions: mbstring, xml, json
         coverage: xdebug
 
-    - name: Install dependencies
-      run: composer install --no-interaction --prefer-dist --no-progress
+    - name: Setup Project
+        run: make setup
 
-    - name: Prepare Laravel app
-      run: |
-        cp .env.example .env
-        php artisan key:generate
-        mkdir -p database
-        test -f database/database.sqlite || touch database/database.sqlite
+    - name: Copy .env.example to .env
+      run: cp .env.example .env
 
-    - name: Run migrations
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
-      run: php artisan migrate --force
-
+    - name: Generate Key
+        run: php artisan key:generate
+        
     - name: Run formatter check (pint)
       run: ./vendor/bin/pint --test --preset psr12
