@@ -6,6 +6,9 @@ start:
 install:
 	composer install
 
+run:
+	npm run build
+
 validate:
 	composer validate
 

@@ -7,7 +7,7 @@
 <h6 align="center">профессия PHP-разработчик от Hexlet</h6>
 <h3 align="center">Проект 4: <a href="https://ru.hexlet.io/programs/php/projects/57">Менеджер задач (PHP)</a></h3>
 
-проект на Render.com - https://php-project-57-1-uxv7.onrender.com/
+Развёрнутыё проект на Render.com - https://php-project-57-1-uxv7.onrender.com/
 
 Цель
 
@@ -20,14 +20,14 @@
 
 Проектирование. Нормализация (и Денормализация) базы данных, связи между сущностями. ORM. PaaS. Трекинг ошибок в продакшене с Rollbar. Фреймворк Laravel.
 
-
-##### _Requirements:_  
+---
+##### _Requirements:_ 
 PHP 8.1+  
 Composer  
 Laravel 12
 
-
-##### _Installation:_  
+---
+##### _Installation:_ 
 git clone https://github.com/webDevWay/php-project-57.git  
 cd php-project-57  
 make install  
