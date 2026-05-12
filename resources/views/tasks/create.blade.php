@@ -20,7 +20,7 @@
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
                             Имя <span class="text-red-500">*</span>
                         </label>
-                    <input type="text" name="name" id="name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 @error('name') border-red-500 @enderror" placeholder="Введите название задачи">
+                    <input type="text" name="name" id="name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 @error('name') border-red-500 @enderror" placeholder="Введите название задачи" value="{{ old('name') }}">
                         @error('name')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -29,7 +29,8 @@
                         <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
                             Описание
                         </label>
-                    <textarea name="description" id="description" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Подробное описание задачи..."></textarea>
+                    <textarea name="description" id="description" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"  value=""
+                    placeholder="Подробное описание задачи...">{{ old('name') }}</textarea>
                         @error('description')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror

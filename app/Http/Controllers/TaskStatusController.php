@@ -52,7 +52,7 @@ class TaskStatusController extends Controller
 
         return redirect()->route('task_statuses.index')->with('success', 'Статус успешно создан');
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */
