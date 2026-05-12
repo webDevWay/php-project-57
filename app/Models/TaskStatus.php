@@ -16,9 +16,4 @@ class TaskStatus extends Model
     {
         return $this->hasMany(Task::class, 'status_id');
     }
-
-    public function canBeDeleted(): bool
-    {
-        return $this->tasks()->count() === 0;
-    }
 }

@@ -45,7 +45,7 @@ class LabelPolicy
      */
     public function delete(User $user, Label $label): bool
     {
-        return $label->tasks()->count() === 0;
+        return true;
     }
 
     /**

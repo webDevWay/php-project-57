@@ -40,9 +40,4 @@ class Task extends Model
     {
         return $this->belongsToMany(Label::class, 'task_label');
     }
-
-    public function canBeDeletedBy(User $user): bool
-    {
-        return $this->creator->is($user);
-    }
 }

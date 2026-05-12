@@ -15,7 +15,7 @@ class TaskController extends Controller
     public function __construct()
     {
         $this->authorizeResource(Task::class, 'task');
-    }    
+    }
         /**
      * Display a listing of the resource.
      */
@@ -119,9 +119,9 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy(User $user, Task $task)
     {
-        if (! $task->canBeDeletedBy(Auth::user())) {
+        if (!$task->creator->is($user)) {
             return redirect()->route('tasks.index')
                 ->with('error', ('Невозможно удалить чужую задачу'));
         }

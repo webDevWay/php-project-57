@@ -100,8 +100,7 @@
                                     <button type="submit" class="text-red-600 hover:text-red-900"><a>{{ ('Удалить') }}</a></button>
                                 </form>
                                 </td>
-                            @endcan
-                                
+                            @endcan                                
                             @endauth
                         </tr>
                         @endforeach

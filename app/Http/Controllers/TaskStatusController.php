@@ -6,6 +6,7 @@ use App\Models\TaskStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 
 class TaskStatusController extends Controller
 {
@@ -80,14 +81,13 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        try {
+        if ($taskStatus->tasks()->count() === 0) {
             $taskStatus->delete();
-            
+
             return redirect()->route('task_statuses.index')
                 ->with('success', 'Статус успешно удалён');
-                
-        } catch (AuthorizationException $e) {
-            return redirect()->route('tasks.index')
+        } else {
+            return redirect()->route('task_statuses.index')
                 ->with('error', 'Не удалось удалить статус');
         }
     }

@@ -19,9 +19,4 @@ class Label extends Model
     {
         return $this->belongsToMany(Task::class, 'task_label');
     }
-
-    public function canBeDeleted(): bool
-    {
-        return $this->tasks()->count() === 0;
-    }
 }

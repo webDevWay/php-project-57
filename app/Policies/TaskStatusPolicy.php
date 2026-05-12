@@ -6,6 +6,7 @@ use App\Models\TaskStatus;
 use App\Models\User;
 use App\Models\Task;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Http\RedirectResponse;
 
 class TaskStatusPolicy
 {
@@ -44,9 +45,9 @@ class TaskStatusPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, TaskStatus $taskStatus): bool
+    public function delete(User $user, TaskStatus $taskStatus): bool | RedirectResponse
     {
-        return $taskStatus->tasks()->count() === 0;
+        return true;
     }
 
     /**

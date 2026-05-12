@@ -11,7 +11,7 @@ class LabelController extends Controller
     public function __construct()
     {
         $this->authorizeResource(Label::class, 'label');
-    }    
+    }
     /**
      * Display a listing of the resource.
      */
@@ -80,7 +80,7 @@ class LabelController extends Controller
      */
     public function destroy(Label $label)
     {
-        if (! $label->canBeDeleted()) {
+        if ($label->tasks()->count() !== 0) {
             return redirect()->route('labels.index')
                 ->with('error', ('Не удалось удалить метку'));
         }
