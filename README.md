@@ -5,9 +5,9 @@
 
 <h1 align="center">Welcome!</h1>
 <h6 align="center">профессия PHP-разработчик от Hexlet</h6>
-<h3 align="center">Проект 4: <a href="https://ru.hexlet.io/programs/php/projects/57">Менеджер задач (PHP)</a></h3>
+<h3 align="center">Проект 4: <a href="https://ru.hexlet.io/programs/php/projects/57">Менеджер задач (PHP. Laravel)</a></h3>
 
-Развёрнутыё проект на Render.com - https://php-project-57-1-uxv7.onrender.com/
+Развёрнутый проект на Render.com - https://php-project-57-1-uxv7.onrender.com/
 
 Цель
 

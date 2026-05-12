@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\TaskStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class TaskStatusController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(TaskStatus::class, 'task_status');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -23,10 +28,6 @@ class TaskStatusController extends Controller
      */
     public function create()
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-
         return view('task_statuses.create');
     }
 
@@ -35,9 +36,6 @@ class TaskStatusController extends Controller
      */
     public function store(Request $request)
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
         $messages = [
             'name.required' => 'Это обязательное поле',
             'name.unique' => 'Статус с таким именем уже существует',
@@ -58,10 +56,6 @@ class TaskStatusController extends Controller
      */
     public function edit(TaskStatus $taskStatus)
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-
         return view('task_statuses.edit', ['status' => $taskStatus]);
     }
 
@@ -70,10 +64,6 @@ class TaskStatusController extends Controller
      */
     public function update(Request $request, TaskStatus $taskStatus)
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-
         $data = $request->validate([
             'name' => 'required|min:3|max:100|unique:task_statuses',
         ]);
@@ -90,17 +80,15 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-
-        if (! $taskStatus->canBeDeleted()) {
+        try {
+            $taskStatus->delete();
+            
             return redirect()->route('task_statuses.index')
+                ->with('success', 'Статус успешно удалён');
+                
+        } catch (AuthorizationException $e) {
+            return redirect()->route('tasks.index')
                 ->with('error', 'Не удалось удалить статус');
         }
-
-        $taskStatus->delete();
-
-        return redirect()->route('task_statuses.index')->with('success', 'Статус успешно удалён');
     }
 }

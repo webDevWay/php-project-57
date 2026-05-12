@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class LabelController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Label::class, 'label');
+    }    
     /**
      * Display a listing of the resource.
      */
@@ -23,10 +27,6 @@ class LabelController extends Controller
      */
     public function create()
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-
         return view('labels.create');
     }
 
@@ -35,10 +35,6 @@ class LabelController extends Controller
      */
     public function store(Request $request)
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-
         $messages = [
             'name.required' => 'Это обязательное поле',
             'name.unique' => 'Метка с таким именем уже существует',
@@ -62,10 +58,6 @@ class LabelController extends Controller
      */
     public function edit(Label $label)
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-
         return view('labels.edit', ['label' => $label]);
     }
 
@@ -74,10 +66,6 @@ class LabelController extends Controller
      */
     public function update(Request $request, Label $label)
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-
         $data = $request->validate([
             'name' => 'required',
             'description' => 'string',
@@ -92,10 +80,6 @@ class LabelController extends Controller
      */
     public function destroy(Label $label)
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-
         if (! $label->canBeDeleted()) {
             return redirect()->route('labels.index')
                 ->with('error', ('Не удалось удалить метку'));

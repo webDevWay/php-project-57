@@ -12,7 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-    /**
+    public function __construct()
+    {
+        $this->authorizeResource(Task::class, 'task');
+    }    
+        /**
      * Display a listing of the resource.
      */
     public function index()
@@ -29,10 +33,6 @@ class TaskController extends Controller
      */
     public function create()
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-
         $statuses = TaskStatus::all();
         $users = User::all();
         $labels = Label::all();
@@ -45,10 +45,6 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-
         $messages = [
             'name.required' => 'Это обязательное поле',
         ];
@@ -87,10 +83,6 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-
         $statuses = TaskStatus::all();
         $users = User::all();
         $labels = Label::all();
@@ -103,10 +95,6 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -133,10 +121,6 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-
         if (! $task->canBeDeletedBy(Auth::user())) {
             return redirect()->route('tasks.index')
                 ->with('error', ('Невозможно удалить чужую задачу'));
