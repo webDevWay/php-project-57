@@ -79,10 +79,6 @@ class TaskController extends Controller
      */
     public function show(Task $task, User $user)
     {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-
         return view('tasks.show', compact('task'));
     }
 

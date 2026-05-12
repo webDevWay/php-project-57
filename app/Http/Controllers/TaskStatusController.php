@@ -52,14 +52,7 @@ class TaskStatusController extends Controller
 
         return redirect()->route('task_statuses.index')->with('success', 'Статус успешно создан');
     }
-
-    public function show(TaskStatus $taskStatus)
-    {
-        if (! Auth::check()) {
-            return redirect()->route('index');
-        }
-    }
-
+    
     /**
      * Show the form for editing the specified resource.
      */
