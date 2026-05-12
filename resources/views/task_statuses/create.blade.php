@@ -3,33 +3,30 @@
 @section('content')
 
     <div class="max-w-2xl mx-auto">
-        <!-- Заголовок -->
         <div class="mb-3">
             <h1 class="text-2xl font-bold text-gray-800">Создать статус</h1>
             <p class="text-gray-600 mt-1">Добавьте новый статус для задач</p>
         </div>
 
-        <!-- Карточка формы -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <form method="POST" action="{{ route('task_statuses.store') }}" class="p-6">
                 @csrf
                 
-                <!-- Поле Имя -->
                 <div class="mb-6">
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-                        Имя <span class="text-red-500">*</span>
+                        Имя 
+                        <span class="text-red-500">*</span>
+                        <span class="text-gray-400 text-xs"> (обязательно)</span>
                     </label>
                     <input type="text" 
                            name="name" 
                            id="name" 
                            value="{{ old('name') }}"
                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none"
-                           placeholder="Например: В работе, Завершена, Отложена"
-                           >
+                           placeholder="Например: В работе, Завершена, Отложена">
                     @error('name')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
-                    <p class="mt-1 text-sm text-gray-500">Минимум 3 символа, максимум 50</p>
                 </div>
 
                 <div class="mb-6">
@@ -41,13 +38,13 @@
                         <select name="color" 
                                 id="color" 
                                 class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none bg-white font-medium">
-                            <option value="gray" {{ old('color') == 'gray' ? 'selected' : '' }}>⬜ Серый</option>
-                            <option value="red" {{ old('color') == 'red' ? 'selected' : '' }}>🟥 Красный</option>
-                            <option value="blue" {{ old('color') == 'blue' ? 'selected' : '' }}>🟦 Синий</option>
-                            <option value="green" {{ old('color') == 'green' ? 'selected' : '' }}>🟩 Зелёный</option>
-                            <option value="yellow" {{ old('color') == 'yellow' ? 'selected' : '' }}>🟨 Жёлтый</option>
-                            <option value="purple" {{ old('color') == 'purple' ? 'selected' : '' }}>🟪 Фиолетовый</option>
-                            <option value="indigo" {{ old('color') == 'indigo' ? 'selected' : '' }}>🟦 Индиго</option>
+                            <option value="gray" @selected(old('color') == 'gray')>⬜ Серый</option>
+                            <option value="red" @selected(old('color') == 'red')>🟥 Красный</option>
+                            <option value="blue" @selected(old('color') == 'blue')>🟦 Синий</option>
+                            <option value="green" @selected(old('color') == 'green')>🟩 Зелёный</option>
+                            <option value="yellow" @selected(old('color') == 'yellow')>🟨 Жёлтый</option>
+                            <option value="purple" @selected(old('color') == 'purple')>🟪 Фиолетовый</option>
+                            <option value="indigo" @selected(old('color') == 'indigo')>🟦 Индиго</option>
                         </select>
                     </div>
                 </div>
@@ -65,7 +62,6 @@
             </form>
         </div>
 
-        <!-- Примеры статусов -->
         <div class="mt-4 bg-white rounded-lg shadow-md p-6">
             <h3 class="text-sm font-semibold text-gray-700 mb-3">Примеры статусов:</h3>
             <div class="flex flex-wrap gap-2">

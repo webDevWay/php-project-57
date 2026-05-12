@@ -8,13 +8,13 @@
             @csrf
             @method('PATCH')
             
+            <span class="text-gray-400 text-xs"> (обязательное поле)</span>
             <input type="text" 
                     name="name" 
                     id="name" 
-                    value="{{ $label->name }}"
+                    value="{{ old('name', $label->name) }}"
                     class="w-full px-4 py-2 mb-6 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none"
                     required>
-
                 @error('name')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -26,8 +26,7 @@
                 <textarea name="description" 
                         id="description" 
                         rows="3"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none">{{ $label->description }}</textarea>
-                
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none">{{ $label->description }}</textarea>                
                 @error('description')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror

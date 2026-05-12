@@ -8,11 +8,12 @@
                 @csrf
                 @method('PATCH')
                 
+                <span class="text-gray-400 text-xs"> (обязательное поле)</span>
                 <input type="text" 
                            name="name" 
                            id="name" 
-                           value="{{ $status->name }}"
-                           class="w-full px-4 py-2 mb-6 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none"
+                           value="{{ old('name', $status->name) }}"
+                           class="w-full px-4 py-2 mb-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none"
                            required>
                     @error('name')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

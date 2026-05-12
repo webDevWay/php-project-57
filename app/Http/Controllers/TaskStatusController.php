@@ -44,7 +44,7 @@ class TaskStatusController extends Controller
         ];
 
         $data = $request->validate([
-            'name' => 'required|min:3|max:100|unique:task_statuses',
+            'name' => 'required|max:100|unique:task_statuses',
             'color' => 'string',
         ], $messages);
 

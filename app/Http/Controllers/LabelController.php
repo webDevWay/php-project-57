@@ -79,7 +79,7 @@ class LabelController extends Controller
         }
 
         $data = $request->validate([
-            'name' => 'required|min:3',
+            'name' => 'required',
             'description' => 'string',
         ]);
         $label->update($data);
