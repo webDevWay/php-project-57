@@ -60,7 +60,7 @@ class TaskController extends Controller
 
         $task = Auth::user()->createdTasks()->make($validated);
         $task->save();
-       
+
         if (isset($validated['labels']) && $validated['labels'] !== []) {
             $task->labels()->sync($validated['labels']);
         }
