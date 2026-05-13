@@ -53,4 +53,13 @@ class Task extends Model
     {
         return $this->belongsToMany(Label::class, 'task_label');
     }
+
+    public function isCreatedBy(?User $user): bool
+    {
+        if ($user === null) {
+            return false;
+        }
+
+        return (int) $this->getAttribute('created_by_id') === (int) $user->getKey();
+    }
 }
