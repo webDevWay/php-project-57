@@ -6,7 +6,6 @@ use App\Models\Label;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 use App\QueryBuilders\TaskQueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -119,15 +118,9 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    /**
-     * @phpstan-assert User $task->createdBy
-     * @property int $id
-     * @property int $created_by_id
-     * @property-read User $createdBy
-    */
-    public function destroy(User $user, Task $task)
+    public function destroy(Task $task)
     {
-        if ((int)$task->createdBy->id !== Auth::id()) {
+        if ((int) $task->created_by_id !== (int) Auth::id()) {
             return redirect()->route('tasks.index')
                 ->with('error', ('Невозможно удалить чужую задачу'));
         }

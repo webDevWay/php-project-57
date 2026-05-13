@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int|null $assigned_to_id
  *
  * @property-read TaskStatus $status
- * @property-read User $creator
- * @property-read User|null $assignee
+ * @property-read User $createdBy
+ * @property-read User|null $assignedTo
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Label> $labels
  */
 class Task extends Model
