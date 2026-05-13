@@ -7,6 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string|null $description
+ * @property int $status_id
+ * @property int $created_by_id
+ * @property int|null $assigned_to_id
+ *
+ * @property-read TaskStatus $status
+ * @property-read User $creator
+ * @property-read User|null $assignee
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Label> $labels
+ */
 class Task extends Model
 {
     use HasFactory;
@@ -28,7 +41,7 @@ class Task extends Model
 
     public function createdBy(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'created_by_id');
     }
 
     public function assignedTo(): BelongsTo
