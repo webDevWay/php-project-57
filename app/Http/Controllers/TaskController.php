@@ -106,9 +106,9 @@ class TaskController extends Controller
         $task->update($validated);
 
         if (isset($validated['labels'])) {
-            $task->labels()->sync($validated['labels']);
+            $task->labels->sync($validated['labels']);
         } else {
-            $task->labels()->sync([]);
+            $task->labels->sync([]);
         }
 
         return redirect()->route('tasks.index')
