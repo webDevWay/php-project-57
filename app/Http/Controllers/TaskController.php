@@ -119,9 +119,15 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    /**
+     * @phpstan-assert User $task->createdBy
+     * @property int $id
+     * @property int $created_by_id
+     * @property-read User $createdBy
+    */
     public function destroy(User $user, Task $task)
     {
-        if ($task->createdBy->id !== Auth::id()) {
+        if ((int)$task->createdBy->id !== Auth::id()) {
             return redirect()->route('tasks.index')
                 ->with('error', ('Невозможно удалить чужую задачу'));
         }

@@ -35,7 +35,7 @@ class User extends Authenticatable
     /**
      * Get all of the createdTasks for the User.
      */
-    public function createdTasks(): HasMany
+    public function createdByTasks(): HasMany
     {
         return $this->hasMany(Task::class, 'created_by_id');
     }
