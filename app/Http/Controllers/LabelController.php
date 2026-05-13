@@ -41,7 +41,7 @@ class LabelController extends Controller
         ];
 
         $data = $request->validate([
-            'name' => 'required|min:3|max:50|unique:labels,name',
+            'name' => 'required|unique:labels,name',
             'description' => 'nullable|string|max:100',
             'color' => 'string',
         ], $messages);

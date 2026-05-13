@@ -43,7 +43,7 @@ class TaskStatusController extends Controller
         ];
 
         $data = $request->validate([
-            'name' => 'required|max:100|unique:task_statuses',
+            'name' => 'required|unique:task_statuses',
             'color' => 'string',
         ], $messages);
 
@@ -65,9 +65,14 @@ class TaskStatusController extends Controller
      */
     public function update(Request $request, TaskStatus $taskStatus)
     {
+        $messages = [
+            'name.required' => 'Это обязательное поле',
+            'name.unique' => 'Статус с таким именем уже существует',
+        ];
+
         $data = $request->validate([
-            'name' => 'required|min:3|max:100|unique:task_statuses',
-        ]);
+            'name' => 'required|unique:task_statuses',
+        ], $messages);
 
         $taskStatus->update([
             'name' => $data['name'],
