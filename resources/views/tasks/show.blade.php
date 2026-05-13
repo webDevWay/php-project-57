@@ -27,11 +27,11 @@
                 </div>
                 <div>
                     <h3 class="text-sm font-medium text-gray-500">{{ "Создатель" }}</h3>
-                    <p class="mt-1 text-gray-900">{{ $task->creator->name }}</p>
+                    <p class="mt-1 text-gray-900">{{ $task->createdBy->name }}</p>
                 </div>
                 <div>
                     <h3 class="text-sm font-medium text-gray-500">{{ "Исполнитель" }}</h3>
-                    <p class="mt-1 text-gray-900">{{ $task->assignee?->name ?? ('Нет исполнителя') }}</p>
+                    <p class="mt-1 text-gray-900">{{ $task->assignedTo?->name ?? ('Нет исполнителя') }}</p>
                 </div>
                 <div>
                     <h3 class="text-sm font-medium text-gray-500">{{ "Метки" }}</h3>

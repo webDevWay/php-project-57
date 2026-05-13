@@ -60,7 +60,8 @@ class TaskController extends Controller
 
         $validated['created_by_id'] = Auth::id();
 
-        $task = Task::create($validated);
+        $task = Auth::user()->createdTasks()->make($validated);
+        $task->save();
 
         if (isset($validated['labels']) && $validated['labels'] !== []) {
             $task->labels()->sync($validated['labels']);
@@ -121,7 +122,7 @@ class TaskController extends Controller
      */
     public function destroy(User $user, Task $task)
     {
-        if (!$task->creator->id == Auth::id()) {
+        if ($task->createdBy->id !== Auth::id()) {
             return redirect()->route('tasks.index')
                 ->with('error', ('Невозможно удалить чужую задачу'));
         }

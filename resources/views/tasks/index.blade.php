@@ -85,11 +85,11 @@
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex flex-wrap gap-1">
-                                    <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-gray-100 text-gray-600">{{ $task->creator->name }}</span>
+                                    <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-gray-100 text-gray-600">{{ $task->createdBy->name }}</span>
                                 </div>
                             </td>
                             <?php //dump($task)?>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $task->assignee?->name ?? ('Нет исполнителя') }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $task->assignedTo?->name ?? ('Нет исполнителя') }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $task->created_at?->format('d.m.Y') }}</td>
                             @auth
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">

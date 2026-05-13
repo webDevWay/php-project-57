@@ -19,21 +19,21 @@ class Task extends Model
         'assigned_to_id',
     ];
 
-    protected $with = ['status', 'creator', 'assignee', 'labels'];
+    protected $with = ['status', 'createdBy', 'assignedTo', 'labels'];
 
     public function status(): BelongsTo
     {
-        return $this->belongsTo(TaskStatus::class, 'status_id');
+        return $this->belongsTo(TaskStatus::class);
     }
 
-    public function creator(): BelongsTo
+    public function createdBy(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'created_by_id');
+        return $this->belongsTo(User::class);
     }
 
-    public function assignee(): BelongsTo
+    public function assignedTo(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'assigned_to_id');
+        return $this->belongsTo(User::class);
     }
 
     public function labels(): BelongsToMany
