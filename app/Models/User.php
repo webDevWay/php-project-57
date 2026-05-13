@@ -34,6 +34,8 @@ class User extends Authenticatable
 
     /**
      * Get all of the createdTasks for the User.
+     *
+     * @return HasMany<Task>
      */
     public function createdTasks(): HasMany
     {
@@ -42,6 +44,8 @@ class User extends Authenticatable
 
     /**
      * Get all of the assignedTasks for the User.
+     *
+     * @return HasMany<Task>
      */
     public function assignedTasks(): HasMany
     {

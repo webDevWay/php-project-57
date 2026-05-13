@@ -43,7 +43,7 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Task $task)
+    public function store(Request $request)
     {
         $messages = [
             'name.required' => 'Это обязательное поле',
@@ -58,7 +58,10 @@ class TaskController extends Controller
             'labels.*' => 'exists:labels,id',
         ], $messages);
 
-        $task = Auth::user()->createdTasks()->make($validated);
+        $user = Auth::user();
+        assert($user instanceof User);
+
+        $task = $user->createdTasks()->make($validated);
         $task->save();
 
         if (isset($validated['labels']) && $validated['labels'] !== []) {
