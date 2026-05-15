@@ -76,7 +76,6 @@ class TaskStatusControllerTest extends TestCase
     {
         $response = $this->get(route('task_statuses.create'));
         //$response->assertRedirect(route('index'));
-        $response->getStatusCode() === 403;
-        $this->assertTrue(true);
+        $response->assertStatus(403);
     }
 }

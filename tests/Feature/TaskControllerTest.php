@@ -27,8 +27,7 @@ class TaskControllerTest extends TestCase
     {
         $response = $this->get(route('tasks.create'));
         //$response->assertRedirect(route('index'));
-        $response->getStatusCode() === 403;
-        $this->assertTrue(true);
+        $response->assertStatus(403);
     }
 
     public function testAuthenticatedUserCanViewTasks()

@@ -24,8 +24,8 @@ class LabelControllerTest extends TestCase
     {
         $response = $this->get(route('labels.create'));
         //$response->assertRedirect(route('index'));
-        $response->getStatusCode() === 403;
-        $this->assertTrue(true);
+        $response->assertStatus(403);
+       //$this->assertTrue(true);
     }
 
     public function testAuthenticatedUserCanViewLabels()
