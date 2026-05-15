@@ -26,7 +26,6 @@ class TaskControllerTest extends TestCase
     public function testGuestCannotAccessTasks()
     {
         $response = $this->get(route('tasks.create'));
-        //$response->assertRedirect(route('index'));
         $response->assertStatus(403);
     }
 
