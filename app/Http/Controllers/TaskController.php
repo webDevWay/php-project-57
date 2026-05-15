@@ -58,11 +58,7 @@ class TaskController extends Controller
             'labels.*' => 'exists:labels,id',
         ], $messages);
 
-        $user = Auth::user();
-        //assert($user instanceof User);
-
-        $task = $user->createdTasks()->make($validated);
-        $task->save();
+        $task = Auth::user()->createdTasks()->make($validated)->save();
 
         if (isset($validated['labels']) && $validated['labels'] !== []) {
             $task->labels()->sync($validated['labels']);
