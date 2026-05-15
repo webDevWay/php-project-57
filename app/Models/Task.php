@@ -41,7 +41,7 @@ class Task extends Model
 
     public function createdBy(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'created_by_id');
+        return $this->belongsTo(User::class);
     }
 
     public function assignedTo(): BelongsTo
@@ -52,14 +52,5 @@ class Task extends Model
     public function labels(): BelongsToMany
     {
         return $this->belongsToMany(Label::class, 'task_label');
-    }
-
-    public function isCreatedBy(?User $user): bool
-    {
-        if ($user === null) {
-            return false;
-        }
-
-        return (int) $this->getAttribute('created_by_id') === (int) $user->getKey();
     }
 }
