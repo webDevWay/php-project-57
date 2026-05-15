@@ -59,7 +59,7 @@ class TaskController extends Controller
         ], $messages);
 
         $user = Auth::user();
-        assert($user instanceof User);
+        //assert($user instanceof User);
 
         $task = $user->createdTasks()->make($validated);
         $task->save();

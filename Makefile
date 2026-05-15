@@ -1,7 +1,7 @@
 #PORT ?= 8000
 
 start:
-	PHP artisan serve
+	php artisan serve
 	
 install:
 	composer install
