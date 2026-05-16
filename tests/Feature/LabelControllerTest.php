@@ -6,6 +6,7 @@ use App\Models\Label;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
 class LabelControllerTest extends TestCase
@@ -17,6 +18,7 @@ class LabelControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        Artisan::call('migrate:fresh --seed');
         $this->user = User::factory()->create();
     }
 

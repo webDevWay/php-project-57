@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use App\Models\Label;
 use Illuminate\Support\Facades\DB;
 
 class LabelSeeder extends Seeder
@@ -13,6 +14,8 @@ class LabelSeeder extends Seeder
      */
     public function run(): void
     {
+        Label::truncate();
+
         DB::table('labels')->insert(['name' => 'ошибка',
             'description' => 'Какая-то ошибка в коде или проблема с функциональностью',
             'color' => 'red',
