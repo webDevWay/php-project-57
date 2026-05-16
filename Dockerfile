@@ -26,4 +26,4 @@ RUN echo "DB_CONNECTION=pgsql" >> .env.production || true
 RUN composer install
 RUN npm ci
 RUN npm run build
-CMD ["bash", "-c", "php artisan migrate:refresh --seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
+CMD ["bash", "-c", "php artisan migrate:refresh --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
