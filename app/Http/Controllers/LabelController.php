@@ -40,15 +40,13 @@ class LabelController extends Controller
             'name.unique' => 'Метка с таким именем уже существует',
         ];
 
-        $data = $request->validate([
-            'name' => 'required|unique:labels,name',
+        $validated = $request->validate([
+            'name' => 'required|max:255|unique:labels,name',
             'description' => 'nullable|string|max:100',
             'color' => 'string',
         ], $messages);
 
-        Label::create($data);
-
-        // new Label()->fill($data)->save();
+        Label::create($validated);
 
         return redirect()->route('labels.index')->with('success', 'Метка успешно создана');
     }
@@ -66,11 +64,11 @@ class LabelController extends Controller
      */
     public function update(Request $request, Label $label)
     {
-        $data = $request->validate([
-            'name' => 'required',
+        $validated = $request->validate([
+            'name' => 'required|max:255',
             'description' => 'string',
         ]);
-        $label->update($data);
+        $label->update($validated);
 
         return redirect()->route('labels.index')->with('success', 'Метка успешно изменена');
     }

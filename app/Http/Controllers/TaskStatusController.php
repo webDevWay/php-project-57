@@ -42,12 +42,12 @@ class TaskStatusController extends Controller
             'name.unique' => 'Статус с таким именем уже существует',
         ];
 
-        $data = $request->validate([
-            'name' => 'required|unique:task_statuses',
+        $validated = $request->validate([
+            'name' => 'required|unique:task_statuses|max:255',
             'color' => 'string',
         ], $messages);
 
-        TaskStatus::create($data);
+        TaskStatus::create($validated);
 
         return redirect()->route('task_statuses.index')->with('success', 'Статус успешно создан');
     }
@@ -70,12 +70,12 @@ class TaskStatusController extends Controller
             'name.unique' => 'Статус с таким именем уже существует',
         ];
 
-        $data = $request->validate([
-            'name' => 'required|unique:task_statuses',
+        $validated = $request->validate([
+            'name' => 'required|max:255|unique:task_statuses',
         ], $messages);
 
         $taskStatus->update([
-            'name' => $data['name'],
+            'name' => $validated['name'],
         ]);
 
         return redirect()->route('task_statuses.index')->with('success', 'Статус успешно изменён');
