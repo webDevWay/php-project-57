@@ -42,7 +42,11 @@
                         <select name="status_id" id="status_id" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none    focus:ring-2 focus:ring-indigo-500">
                         <option value="">Выберите статус задачи</option>
                         @foreach($statuses as $status)
-                            <option value="{{ $status->id }}" class="px-2 py-1 rounded bg-{{ $status->color }}-100 text-{{ $status->color }}-800"> {{ $status->name }}</option>
+                            <option value="{{ $status->id }}" 
+                                class="px-2 py-1 rounded bg-{{ $status->color }}-100 text-{{ $status->color }}-800" 
+                                {{ old('status_id') == $status->id ? 'selected' : '' }}> 
+                                {{ $status->name }}
+                            </option>
                         @endforeach
                     </select>
                         @error('status')
@@ -56,7 +60,7 @@
                         <select name="assigned_to_id" id="assigned_to_id" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         <option value="">Выберите исполнителя</option>
                             @foreach($users as $user)
-                                <option value="{{ old('user->id', $user->id) }}" class="px-2 py-1"> {{ $user->name }}</option>
+                            <option value="{{ $user->id }}" @selected(old('assigned_to_id') == $user->id)>{{ $user->name }}</option>
                             @endforeach
                         </select>
                         @error('assigned_to_id')
@@ -64,14 +68,16 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="labels" class="block text-sm font-medium text-gray-700 mb-2">Метки</label>
+                        <label for="labels" class="block text-sm font-medium text-gray-700 mb-2">Метки (нажмите сюда для выбора меток)
+                            <p class="mt-1 text-sm text-gray-400">Чтобы выделить несколько меток, удерживайте Ctrl (Windows) или Command (Mac) и выберите нужные метки</p>
+                        </label>
                             <select name="labels[]" id="labels" multiple class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
                                 @foreach($labels as $label)
-                                    <option value="{{ $label->id }}" class="px-2 py-1 rounded bg-{{ $label->color }}-100 text-{{ $label->color }}-800"> {{ $label->name }}  </option>
+                                    <option value="{{ $label->id }}" class="px-2 py-1 rounded bg-{{ $label->color }}-100 text-{{ $label->color }}-800" 
+                                        @selected(in_array($label->id, old('labels', [])))> {{ $label->name }}  </option>
                                 @endforeach
                             </select>
-                            <p class="mt-1 text-sm text-gray-500">{{ "Чтобы выделить несколько меток, удерживайте Ctrl (Windows) или Command (Mac) и выберите нужные метки" }}</p>
-                                    @error('labels')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                            @error('labels') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                     </div>
                     
                     <div class="flex items-center justify-end space-x-3 mt-8 pt-6 border-t border-gray-200">
