@@ -43,8 +43,7 @@
                         <option value="">Выберите статус задачи</option>
                         @foreach($statuses as $status)
                             <option value="{{ $status->id }}" 
-                                class="px-2 py-1 rounded bg-{{ $status->color }}-100 text-{{ $status->color }}-800" 
-                                {{ old('status_id') == $status->id ? 'selected' : '' }}> 
+                                class="px-2 py-1 rounded bg-{{ $status->color }}-100 text-{{ $status->color }}-800" @selected(old('status_id') == $status->id)> 
                                 {{ $status->name }}
                             </option>
                         @endforeach
