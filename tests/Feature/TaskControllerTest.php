@@ -16,11 +16,16 @@ class TaskControllerTest extends TestCase
 
     protected $status;
 
+    protected $task;
+
     protected function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create();
         $this->status = TaskStatus::factory()->create();
+        $this->task = Task::factory()->create(['created_by_id' => $this->user->id,
+                                                'status_id' => $this->status->id,
+                                            ]);
     }
 
     public function testGuestCannotAccessTasks()
@@ -37,27 +42,21 @@ class TaskControllerTest extends TestCase
 
     public function testAuthenticatedUserCanViewSingleTask()
     {
-        $task = Task::factory()->create(['created_by_id' => $this->user->id,
-                                        'status_id' => $this->status->id,
-                                    ]);
-        $response = $this->actingAs($this->user)->get(route('tasks.show', $task));
+        $response = $this->actingAs($this->user)->get(route('tasks.show', $this->task));
         $response->assertStatus(200);
     }
 
     public function testAuthenticatedUserCanCreateTask()
     {
-        $data = [
-                'name' => 'Test Task',
+        $data = ['name' => 'Test Task',
                 'status_id' => $this->status->id,
                 ];
         $response = $this->actingAs($this->user)->post(route('tasks.store'), $data);
         $response->assertRedirect(route('tasks.index'));
-        $this->assertDatabaseHas('tasks', [
-                                            'name' => 'Test Task',
-                                            'created_by_id' => $this->user->id,
+        $this->assertDatabaseHas('tasks', ['name' => 'Test Task',
+                                           'created_by_id' => $this->user->id,
                                             ]);
-        $task = Task::where('name', 'Test Task')->first();
-        $this->assertTrue($this->user->createdTasks->contains($task));
+        $this->assertTrue($this->user->createdTasks->contains($this->task));
     }
 
     public function testTaskRequiresName()
@@ -68,42 +67,33 @@ class TaskControllerTest extends TestCase
 
     public function testAuthenticatedUserCanUpdateTask()
     {
-        $task = Task::factory()->create([
-                                        'created_by_id' => $this->user->id,
-                                        'status_id' => $this->status->id]);
-        $response = $this->actingAs($this->user)->put(route('tasks.update', $task), [
-            'name' => 'Updated',
-            'status_id' => $this->status->id,
-        ]);
+        $response = $this->actingAs($this->user)->put(route('tasks.update', $this->task), ['name' => 'Updated',
+                                                                                        'status_id' => $this->status->id,
+                                                                                        ]);
         $response->assertRedirect(route('tasks.index'));
-        $this->assertDatabaseHas('tasks', [
-            'id' => $task->id,
-            'name' => 'Updated',
-        ]);
-        $this->assertTrue($this->user->createdTasks->contains($task));
+        $this->assertDatabaseHas('tasks', ['id' => $this->task->id,
+                                            'name' => 'Updated',
+                                         ]);
+        $this->assertTrue($this->user->createdTasks->contains($this->task));
     }
 
     public function testCreatorCanDeleteTask()
     {
-        $task = Task::factory()->create([
-            'created_by_id' => $this->user->id,
-            'status_id' => $this->status->id,
-        ]);
-        $response = $this->actingAs($this->user)->delete(route('tasks.destroy', $task));
+        $response = $this->actingAs($this->user)->delete(route('tasks.destroy', $this->task));
         $response->assertRedirect(route('tasks.index'));
-        $this->assertDatabaseMissing('tasks', ['id' => $task->id]);
+        $this->assertDatabaseMissing('tasks', ['id' => $this->task->id]);
     }
 
     public function testNonCreatorCannotDeleteTask()
     {
         $otherUser = User::factory()->create();
-        $task = Task::factory()->create([
-            'created_by_id' => $otherUser->id,
-            'status_id' => $this->status->id,
-        ]);
+        $task = Task::factory()->create(['created_by_id' => $otherUser->id,
+                                        'status_id' => $this->status->id,
+                                    ]);
         $response = $this->actingAs($this->user)->delete(route('tasks.destroy', $task));
         $this->assertDatabaseHas('tasks', ['id' => $task->id]);
         $this->assertFalse($this->user->createdTasks->contains($task));
         $this->assertTrue($otherUser->createdTasks->contains($task));
+        $response->assertStatus(403);
     }
 }

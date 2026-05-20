@@ -61,9 +61,7 @@ class TaskController extends Controller
         $task = Auth::user()->createdTasks()->make($validated);
         $task->save();
 
-        if (isset($validated['labels']) && $validated['labels'] !== []) {
-            $task->labels()->sync($validated['labels']);
-        }
+        $task->labels()->sync($validated['labels'] ?? []);
 
         return redirect()->route('tasks.index')
             ->with('success', ('Задача успешно создана'));
@@ -105,11 +103,7 @@ class TaskController extends Controller
 
         $task->update($validated);
 
-        if (isset($validated['labels'])) {
-            $task->labels()->sync($validated['labels']);
-        } else {
-            $task->labels()->sync([]);
-        }
+        $task->labels()->sync($validated['labels'] ?? []);
 
         return redirect()->route('tasks.index')
             ->with('success', ('Задача успешно изменена'));
